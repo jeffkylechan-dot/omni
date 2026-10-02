@@ -72,6 +72,28 @@ function switch_screen(new_screen) {
 
 switch_screen(subject_screen)
 
+
+function last_month() {
+  if (current_month == 0) {
+    current_month = 11
+    current_year -= 1
+  } else {
+    current_month -= 1
+  }
+  genCal(current_month, current_year)
+}
+
+function next_month() {
+  if (current_month == 11) {
+    current_month = 0
+    current_year += 1
+  } else {
+    current_month += 1
+  }
+
+  genCal(current_month, current_year)
+}
+
 function genCal(month, year) {
   cal.innerHTML = ""
   switch_screen(calendar_screen)
@@ -148,6 +170,16 @@ function genCal(month, year) {
   }
 }
 
+document.body.addEventListener('keydown', (event) => {
+  if (event.key === "ArrowLeft") {
+    last_month()
+  }
+
+  else if (event.key === "ArrowRight") {
+    next_month()
+  }
+})
+
 const date_input = document.getElementById("date_input")
 
 date_input.addEventListener("keydown", (event) => {
@@ -167,23 +199,11 @@ date_input.addEventListener("keydown", (event) => {
 })
 
 next_button.addEventListener("click", () => {
-  if (current_month == 11) {
-    current_month = 0
-    current_year += 1
-  } else {
-    current_month += 1
-  }
-  genCal(current_month, current_year)
+  next_month()
 })
 
 last_button.addEventListener("click", () => {
-  if (current_month == 0) {
-    current_month = 11
-    current_year -= 1
-  } else {
-    current_month -= 1
-  }
-  genCal(current_month, current_year)
+  last_month()
 })
 //=============================================================================
 //second screen
@@ -430,5 +450,5 @@ switch_button.addEventListener("click", () => {
 genCal(current_month, current_year)
 
 //make the create_kebab function
-//add color changing
+//add color changing <----
 //amake the change_name/make_name function
